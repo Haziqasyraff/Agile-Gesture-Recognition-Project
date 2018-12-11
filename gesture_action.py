@@ -4,15 +4,15 @@ import math
 import twitter
 import serial
 
-ser = serial.Serial('COM3', 9600, timeout=1)
+# ser = serial.Serial('COM3', 9600, timeout=1)
 
 
-def led_on():
-    ser.write(b'1')
+# def led_on():
+    # ser.write(b'1')
 
 
-def led_off():
-    ser.write(b'0')
+# def led_off():
+    # ser.write(b'0')
 
 
 def tweet_triggered():
@@ -29,7 +29,6 @@ def tweet_triggered():
     cv2.waitKey(1000)
 
     twitter_handler.tweet()
-    # TODO: arduino_handler
 
 
 def detect_gesture(l):
