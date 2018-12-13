@@ -4,15 +4,7 @@ import math
 import twitter
 import serial
 
-ser = serial.Serial('COM5', 9600, timeout=1)
-
-
-def led_on():
-     ser.write(b'1')
-
-
-def led_off():
-     ser.write(b'0')
+# ser = serial.Serial('COM5', 9600, timeout=1)
 
 
 def tweet_triggered():
@@ -29,7 +21,6 @@ def tweet_triggered():
     cv2.waitKey(1000)
 
     twitter_handler.tweet()
-    led_on()
 
 
 def detect_gesture(l):
@@ -43,18 +34,24 @@ def detect_gesture(l):
                 my_put_text('Thumbs up')
             else:
                 my_put_text('1')
+                # ser.write(b'1')
 
     elif l == 2:
         my_put_text('2')
+        # ser.write(b'2')
 
     elif l == 3:
         my_put_text('3')
+        # ser.write(b'3')
+
 
     elif l == 4:
         my_put_text('4')
+        # ser.write(b'4')
+
 
     elif l == 5:
-        # my_put_text('5')
+        my_put_text('5')
         return True
 
     else:
@@ -164,9 +161,9 @@ while (1):
         status = detect_gesture(l)
         show_windows()
 
-        if status == True:
+        if status:
             tweet_triggered()
-            led_on()
+            # ser.write(b'5')
             break
     except:
         pass
