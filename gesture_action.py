@@ -3,9 +3,23 @@ import numpy as np
 import math
 import twitter
 import serial
+import time
+from threading import Thread
 
-# ser = serial.Serial('COM5', 9600, timeout=1)
+ser = 0
+def init_arduino():
+    global ser
+    ser = serial.Serial('COM4',9600)
+    time.sleep(2)
+    print("COM port initialized...")
 
+
+def led_on():
+    ser.write(b'1')
+
+
+def led_off():
+    ser.write(b'0')
 
 def tweet_triggered():
     twitter_handler = twitter.Twitter()
@@ -21,6 +35,7 @@ def tweet_triggered():
     cv2.waitKey(1000)
 
     twitter_handler.tweet()
+    led_on()
 
 
 def detect_gesture(l):
@@ -71,6 +86,8 @@ def show_windows():
 
 
 cap = cv2.VideoCapture(0)
+Thread(target=init_arduino).start()
+
 while (1):
 
     # an error comes if it does not find anything in window as it cannot find contour of max area
